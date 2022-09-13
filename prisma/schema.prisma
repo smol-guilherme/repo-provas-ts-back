@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE")
+}
+
+model Users {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+
+  @@map("users")
+}
+
+model Categories {
+  id    Int     @id @default(autoincrement())
+  name  String
+  tests Tests[]
+
+  @@map("categories")
+}
+
+model Tests {
+  id                   Int                  @id @default(autoincrement())
+  name                 String
+  pdfUrl               String
+  Categories           Categories?          @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  categoryId           Int
+  TeachersDisciplines  TeachersDisciplines? @relation(fields: [teachersDisciplineId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  teachersDisciplineId Int?
+
+  @@map("tests")
+}
+
+model Teachers {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @unique
+  teachersDisciplines TeachersDisciplines[]
+
+  @@map("teachers")
+}
+
+model TeachersDisciplines {
+  id           Int          @id @default(autoincrement())
+  Disciplines  Disciplines? @relation(fields: [disciplineId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  disciplineId Int?
+  Teachers     Teachers?    @relation(fields: [teacherId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  teacherId    Int?
+  tests        Tests[]
+
+  @@map("teachersDisciplines")
+}
+
+model Disciplines {
+  id               Int                   @id @default(autoincrement())
+  name             String                @unique
+  term             Terms?                @relation(fields: [termId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  termId           Int?
+  techerDiscipline TeachersDisciplines[]
+
+  @@map("disciplines")
+}
+
+model Terms {
+  id          Int           @id @default(autoincrement())
+  number      Int           @unique
+  disciplines Disciplines[]
+
+  @@map("terms")
+}
