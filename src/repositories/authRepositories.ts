@@ -1,5 +1,5 @@
 import { prisma } from "../databases/database.js";
-import { UserInsertOrLogin } from "../services/authServices.js";
+import { UserInsertOrLogin } from "../types/dataTypes.js";
 import { Users } from "@prisma/client";
 
 export async function findByEmail(email: string): Promise<Users | null> {

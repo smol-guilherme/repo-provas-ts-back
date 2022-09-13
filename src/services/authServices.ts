@@ -1,14 +1,6 @@
 import * as auth from "../repositories/authRepositories.js";
-import { Users } from "@prisma/client";
 import { passwordAuth, passwordFormat } from "../utils/encryptionUtils.js";
-
-export interface IRegistryBody {
-  email: string;
-  password: string;
-  repeatPassword?: string;
-}
-
-export type UserInsertOrLogin = Omit<Users, "id">;
+import { IRegistryBody, UserInsertOrLogin } from "../types/dataTypes.js";
 
 export async function registerRoutine(userData: IRegistryBody) {
   await isUserRegistered(userData.email, false);

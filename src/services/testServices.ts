@@ -1,14 +1,5 @@
-import { Tests } from "@prisma/client";
 import { categoryExistsTest } from "./categoryServices.js";
-
-export type ITestInsert = Omit<Tests, "id">;
-export type ITestRequest = {
-  name: string;
-  pdfUrl: string;
-  category: string;
-  discipline: string;
-  teacher: string;
-};
+import { ITestRequest } from "../types/dataTypes.js";
 
 export async function insertTestRoutine(data: ITestRequest) {
   // const insertData: ITestInsert =
