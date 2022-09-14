@@ -33,6 +33,8 @@ export function handleError(
     return res.status(400).send({ message: error.message });
   if (error.type === "already_exists_error")
     return res.status(409).send({ message: error.message });
+  if (error.type === "registry_conflict_error")
+    return res.status(409).send({ message: error.message });
   if (error.type === "ownership_not_match_error")
     return res.status(401).send({ message: error.message });
 

@@ -1,7 +1,7 @@
 import app from "../src/index";
 import supertest from "supertest";
 
-describe("POST /tests to insert a new test to the Database", async () => {
+describe("POST /tests to insert a new test to the Database", () => {
   it("inserting an object with the correct structure and data", async () => {
     //async?
     const body = {

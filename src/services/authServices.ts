@@ -8,7 +8,7 @@ export async function registerRoutine(userData: IRegistryBody) {
   const callback = await auth.insert(userData);
   if (callback === null)
     throw {
-      type: "registry_conflict",
+      type: "registry_conflict_error",
       message: "e-mail address is already in use",
     };
   return;
@@ -18,11 +18,11 @@ async function isUserRegistered(data: string, isLogin: boolean) {
   const response = await auth.findByEmail(data);
   if (!isLogin && response !== null)
     throw {
-      type: "registry_conflict",
+      type: "registry_conflict_error",
       message: "e-mail address is already in use",
     };
   if (isLogin && response === null)
-    throw { type: "not_found", message: "email invalid or not found" };
+    throw { type: "not_found_error", message: "email invalid or not found" };
   return response;
 }
 
