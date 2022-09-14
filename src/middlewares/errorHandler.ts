@@ -26,12 +26,16 @@ export function handleError(
     if (error?.details[0]?.type === "string.empty")
       return res.status(422).send();
   }
-  if (error.type === "not_found_error") return res.status(404).send();
-  if (error.type === "no_schema_error") return res.status(400).send();
-  if (error.type === "already_exists_error") return res.status(409).send();
-  if (error.type === "ownership_not_match_error") return res.status(401).send();
+  if (error.type === "not_found_error")
+    return res.status(404).send({ message: error.message });
+  if (error.type === "no_schema_error")
+    return res.status(400).send({ message: error.message });
+  if (error.type === "already_exists_error")
+    return res.status(409).send({ message: error.message });
+  if (error.type === "ownership_not_match_error")
+    return res.status(401).send({ message: error.message });
 
-  res.status(500).send();
+  res.status(500).send({ message: error.message });
 }
 
 function isJoiError(error: IError) {

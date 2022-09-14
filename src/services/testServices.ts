@@ -11,7 +11,6 @@ export async function insertTestRoutine(data: ITestRequest) {
     disciplineId,
     data.teacherName
   );
-
   const insertData: TTestInsert = {
     name: data.name,
     pdfUrl: data.pdfUrl,
