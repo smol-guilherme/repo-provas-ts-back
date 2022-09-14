@@ -6,7 +6,7 @@ export type ITestRequest = {
   pdfUrl: string;
   category: string;
   discipline: string;
-  teacher: string;
+  teacherName: string;
 };
 export type TObjectId = Omit<models.Categories, "name">;
 

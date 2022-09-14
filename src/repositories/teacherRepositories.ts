@@ -1,13 +1,17 @@
 import { prisma } from "../databases/database.js";
 import { TObjectId } from "../types/dataTypes.js";
+import { TeachersDisciplines } from "@prisma/client";
 
-export async function findIdByName(
+export async function findRelationIdByNames(
+  discId: number,
   teachName: string
-): Promise<TObjectId | null> {
-  const response = prisma.teachers.findUnique({
-    where: {
-      name: teachName,
-    },
-  });
-  return response;
+): Promise<TeachersDisciplines | null> {
+  const response = await prisma.teachers
+    .findUnique({
+      where: { name: teachName },
+    })
+    .teachersDisciplines();
+  if (response === null) return response;
+  const relation = response.filter((relation) => relation.id === discId)[0];
+  return relation;
 }

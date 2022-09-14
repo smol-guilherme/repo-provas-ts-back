@@ -1,5 +1,4 @@
 import { prisma } from "../databases/database.js";
-import { Disciplines } from "@prisma/client";
 import { TObjectId } from "../types/dataTypes.js";
 
 export async function findIdByName(
