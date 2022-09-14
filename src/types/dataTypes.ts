@@ -8,7 +8,7 @@ export type ITestRequest = {
   discipline: string;
   teacher: string;
 };
-export type TCategoryId = Omit<models.Categories, "name">;
+export type TObjectId = Omit<models.Categories, "name">;
 
 export interface IRegistryBody {
   email: string;

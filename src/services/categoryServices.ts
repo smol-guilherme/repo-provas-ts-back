@@ -1,7 +1,9 @@
-import { findByNameOrInsert } from "../repositories/categoryRepositories.js";
+import { findIdByName } from "../repositories/categoryRepositories.js";
 
 export async function categoryExistsTest(
   categoryName: string
 ): Promise<number> {
-  return await findByNameOrInsert(categoryName);
+  const data = await findIdByName(categoryName);
+  if (data === null) throw { type: "not_found_error" };
+  return data.id;
 }

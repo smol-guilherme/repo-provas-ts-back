@@ -1,18 +1,11 @@
 import { prisma } from "../databases/database.js";
-import { TCategoryId } from "../types/dataTypes.js";
+import { TObjectId } from "../types/dataTypes.js";
 
-export async function findByNameOrInsert(catName: string): Promise<number> {
-  const { id } = await prisma.categories.upsert({
+export async function findIdByName(catName: string): Promise<TObjectId | null> {
+  const response = await prisma.categories.findUnique({
     where: {
       name: catName,
     },
-    update: {},
-    create: {
-      name: catName,
-    },
-    select: {
-      id: true,
-    },
   });
-  return id;
+  return response;
 }
