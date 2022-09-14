@@ -28,13 +28,13 @@ model Categories {
 }
 
 model Tests {
-  id                   Int                  @id @default(autoincrement())
+  id                   Int                 @id @default(autoincrement())
   name                 String
   pdfUrl               String
-  Categories           Categories?          @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Categories           Categories          @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   categoryId           Int
-  TeachersDisciplines  TeachersDisciplines? @relation(fields: [teachersDisciplineId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  teachersDisciplineId Int?
+  TeachersDisciplines  TeachersDisciplines @relation(fields: [teachersDisciplineId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  teachersDisciplineId Int
 
   @@map("tests")
 }
@@ -48,11 +48,11 @@ model Teachers {
 }
 
 model TeachersDisciplines {
-  id           Int          @id @default(autoincrement())
-  Disciplines  Disciplines? @relation(fields: [disciplineId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  disciplineId Int?
-  Teachers     Teachers?    @relation(fields: [teacherId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  teacherId    Int?
+  id           Int         @id @default(autoincrement())
+  Disciplines  Disciplines @relation(fields: [disciplineId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  disciplineId Int
+  Teachers     Teachers    @relation(fields: [teacherId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  teacherId    Int
   tests        Tests[]
 
   @@map("teachersDisciplines")
@@ -61,8 +61,8 @@ model TeachersDisciplines {
 model Disciplines {
   id               Int                   @id @default(autoincrement())
   name             String                @unique
-  term             Terms?                @relation(fields: [termId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  termId           Int?
+  term             Terms                 @relation(fields: [termId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  termId           Int
   techerDiscipline TeachersDisciplines[]
 
   @@map("disciplines")
