@@ -21,10 +21,11 @@ export function handleError(
 
   if (isJoiError(error)) {
     if (error?.details[0]?.type === "string.pattern.base")
-      return res.status(422).send();
-    if (error?.details[0]?.type === "any.only") return res.status(422).send();
+      return res.status(422).send(error?.message);
+    if (error?.details[0]?.type === "any.only")
+      return res.status(422).send(error?.message);
     if (error?.details[0]?.type === "string.empty")
-      return res.status(422).send();
+      return res.status(422).send(error?.message);
   }
   if (error.type === "not_found_error")
     return res.status(404).send({ message: error.message });
@@ -38,7 +39,7 @@ export function handleError(
   res.status(500).send({ message: error.message });
 }
 
-function isJoiError(error: IError) {
+function isJoiError(error: IError): Boolean {
   if (Object.keys(error).includes("details")) return true;
   return false;
 }
