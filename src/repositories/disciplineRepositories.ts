@@ -1,5 +1,5 @@
-import { prisma } from "../databases/database.js";
-import { TObjectId } from "../types/dataTypes.js";
+import { prisma } from "../databases/database";
+import { TObjectId } from "../types/dataTypes";
 
 export async function findIdByName(
   discName: string

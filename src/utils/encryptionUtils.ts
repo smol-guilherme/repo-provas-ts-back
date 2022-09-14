@@ -1,8 +1,8 @@
 import { Users } from "@prisma/client";
-import { emitToken } from "./tokenUtils.js";
+import { emitToken } from "./tokenUtils";
 import bcrypt from "bcrypt";
 import "dotenv/config";
-import { UserInsertOrLogin, IRegistryBody } from "../types/dataTypes.js";
+import { UserInsertOrLogin, IRegistryBody } from "../types/dataTypes";
 
 export function passwordEncrypt(rawData: string) {
   return bcrypt.hashSync(rawData, 10);

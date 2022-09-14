@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import * as schemas from "./schemas/dataSchemas.js";
+import * as schemas from "./schemas/dataSchemas";
 
 type SchemaProp = keyof typeof schemas;
 

@@ -1,8 +1,8 @@
-import { insert } from "../repositories/testRepositories.js";
-import { ITestRequest, TTestInsert } from "../types/dataTypes.js";
-import { categoryExistsTest } from "./categoryServices.js";
-import { disciplineExistsTest } from "./disciplineServices.js";
-import { teacherDisciplineRelationTest } from "./teacherServices.js";
+import { insert } from "../repositories/testRepositories";
+import { ITestRequest, TTestInsert } from "../types/dataTypes";
+import { categoryExistsTest } from "./categoryServices";
+import { disciplineExistsTest } from "./disciplineServices";
+import { teacherDisciplineRelationTest } from "./teacherServices";
 
 export async function insertTestRoutine(data: ITestRequest) {
   const categoryId: number = await categoryExistsTest(data.category);

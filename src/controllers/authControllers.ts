@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import {
   authenticationRoutine,
   registerRoutine,
-} from "../services/authServices.js";
+} from "../services/authServices";
 
 export async function registerUser(req: Request, res: Response) {
   await registerRoutine(req.body);

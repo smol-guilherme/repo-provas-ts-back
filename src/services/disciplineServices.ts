@@ -1,4 +1,4 @@
-import { findIdByName } from "../repositories/disciplineRepositories.js";
+import { findIdByName } from "../repositories/disciplineRepositories";
 
 export async function disciplineExistsTest(disciplineName: string) {
   const data = await findIdByName(disciplineName);

@@ -1,4 +1,4 @@
-import { findIdByName } from "../repositories/categoryRepositories.js";
+import { findIdByName } from "../repositories/categoryRepositories";
 
 export async function categoryExistsTest(
   categoryName: string

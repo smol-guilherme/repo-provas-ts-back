@@ -1,6 +1,6 @@
-import * as auth from "../repositories/authRepositories.js";
-import { passwordAuth, passwordFormat } from "../utils/encryptionUtils.js";
-import { IRegistryBody, UserInsertOrLogin } from "../types/dataTypes.js";
+import * as auth from "../repositories/authRepositories";
+import { passwordAuth, passwordFormat } from "../utils/encryptionUtils";
+import { IRegistryBody, UserInsertOrLogin } from "../types/dataTypes";
 
 export async function registerRoutine(userData: IRegistryBody) {
   await isUserRegistered(userData.email, false);

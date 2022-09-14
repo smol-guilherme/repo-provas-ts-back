@@ -1,4 +1,4 @@
-import { findRelationIdByNames } from "../repositories/teacherRepositories.js";
+import { findRelationIdByNames } from "../repositories/teacherRepositories";
 
 export async function teacherDisciplineRelationTest(
   disciplineId: number,
