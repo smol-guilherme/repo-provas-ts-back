@@ -1,5 +1,7 @@
-import { categoryExistsTest } from "./categoryServices.js";
 import { ITestRequest } from "../types/dataTypes.js";
+import { categoryExistsTest } from "./categoryServices.js";
+import { disciplineExistsTest } from "./disciplineServices.js";
+import { isTeacherRegistered } from "./teacherServices.js";
 
 export async function insertTestRoutine(data: ITestRequest) {
   // const insertData: ITestInsert =
@@ -10,12 +12,4 @@ export async function insertTestRoutine(data: ITestRequest) {
   // trocar por uma função só que verifica se a combinação existe,
   // se sim, retorna id, se não, registra.
   return "booh";
-}
-
-async function disciplineExistsTest(disciplineName: string) {
-  return 1;
-}
-
-async function isTeacherRegistered(teacherName: string) {
-  return 1;
 }
