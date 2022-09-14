@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { registerTest } from "../controllers/testControllers";
-import { authenticateUser } from "../controllers/authControllers";
+import { validateToken } from "../middlewares/tokenValidation";
 import validateData from "../middlewares/joiValidationMiddleware";
 
 const testRouter = Router();
@@ -8,7 +8,7 @@ const testRouter = Router();
 testRouter.post(
   "/tests",
   validateData("testSchema"),
-  authenticateUser,
+  validateToken,
   registerTest
 );
 testRouter.get("/tests");
