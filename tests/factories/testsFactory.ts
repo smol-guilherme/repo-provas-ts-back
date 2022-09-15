@@ -18,5 +18,3 @@ export function incompleteTest(): ITestRequest {
   data[Object.keys(data)[randomNumber] as keyof typeof data] = "";
   return data;
 }
-
-incompleteTest();
