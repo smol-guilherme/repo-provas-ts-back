@@ -1,5 +1,9 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node'
+export default {
+  clearMocks: true,
+  collectCoverage: true,
+  coverageDirectory: "coverage",
+  coverageProvider: "v8",
+  preset: "ts-jest",
+  testEnvironment: "node",
 };

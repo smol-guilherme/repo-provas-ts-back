@@ -11,13 +11,7 @@ export function completeTest(): ITestRequest {
 }
 
 export function incompleteTest(): ITestRequest {
-  const data: ITestRequest = {
-    name: "Projeto Globo",
-    pdfUrl: "https://www.google.com/pdf",
-    category: "Projeto",
-    discipline: "HTML e CSS",
-    teacherName: "Diego Pinho",
-  };
+  const data: ITestRequest = completeTest();
   const randomNumber: number = Math.floor(
     Math.random() * Object.keys(data).length
   );

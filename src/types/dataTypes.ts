@@ -17,3 +17,15 @@ export interface IRegistryBody {
 }
 
 export type UserInsertOrLogin = Omit<models.Users, "id">;
+
+export interface IError extends Error {
+  details: IJoiError[];
+  type: string;
+  message: string;
+}
+
+export interface IJoiError {
+  type: string;
+  message: string;
+  custom_message?: string;
+}

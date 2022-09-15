@@ -9,7 +9,7 @@ export default function validateData(schema: SchemaProp) {
     const { error } = schemas[schema].validate(req.body, {
       abortEarly: false,
     });
-    if (error) throw error.details;
+    if (error) throw error;
     next();
   };
 }

@@ -1,15 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-
-interface IError extends Error {
-  details: IJoiError[];
-  type: string;
-  message: string;
-}
-
-interface IJoiError {
-  type: string;
-  custom_message?: string;
-}
+import { IError } from "../types/dataTypes.js";
 
 export function handleError(
   error: IError,
@@ -17,7 +7,7 @@ export function handleError(
   res: Response,
   next: NextFunction
 ) {
-  console.log(error);
+  console.table(error);
 
   if (isJoiError(error)) {
     if (error?.details[0]?.type === "string.pattern.base")
