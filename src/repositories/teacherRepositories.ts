@@ -1,5 +1,4 @@
 import { prisma } from "../databases/database";
-import { TObjectId } from "../types/dataTypes";
 import { TeachersDisciplines } from "@prisma/client";
 
 export async function findRelationIdByNames(

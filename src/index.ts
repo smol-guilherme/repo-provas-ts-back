@@ -1,6 +1,6 @@
 import express, { json } from "express";
 import "express-async-errors";
-import "dotenv/config";
+import "./config/config";
 import cors from "cors";
 import { handleError } from "./middlewares/errorHandler";
 import authRouter from "./routers/authRouter";

@@ -6,10 +6,10 @@
   "type": "commonjs",
   "exports": "./dist/index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "NODE_ENV=dev nodemon src/index.ts",
     "start": "node ./dist/index.js",
     "build": "tsc --build",
-    "test": "jest --no-cache --watchAll"
+    "test": "NODE_ENV=test jest --no-cache --watchAll"
   },
   "keywords": [],
   "author": "",
