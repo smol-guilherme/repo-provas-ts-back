@@ -28,7 +28,7 @@ describe("POST /signup to register a new user", () => {
   it("inserting a new user with no data so it fails", async () => {
     const { status } = await supertest(app).post("/signup").send({});
 
-    expect(status).toBe(422);
+    expect(status).toBe(400);
   });
 
   it("inserting a new user with duplicate data so it conflicts", async () => {
