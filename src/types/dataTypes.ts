@@ -29,3 +29,13 @@ export interface IJoiError {
   message: string;
   custom_message?: string;
 }
+
+type TTestResponse = {
+  name: string;
+  pdfUrl: string;
+  categoryName: string;
+};
+
+export interface TTeachersTestResponse extends models.Teachers {
+  tests: TTestResponse[];
+}

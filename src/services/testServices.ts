@@ -3,6 +3,8 @@ import { ITestRequest, TTestInsert } from "../types/dataTypes";
 import { categoryExistsTest } from "./categoryServices";
 import { disciplineExistsTest } from "./disciplineServices";
 import { teacherDisciplineRelationTest } from "./teacherServices";
+import * as teacher from "../repositories/teacherRepositories";
+import * as discipline from "../repositories/disciplineRepositories";
 
 export async function insertTestRoutine(data: ITestRequest) {
   const categoryId: number = await categoryExistsTest(data.category);
@@ -19,4 +21,9 @@ export async function insertTestRoutine(data: ITestRequest) {
   };
   const accessId = await insert(insertData);
   return accessId;
+}
+
+export async function getTestsByFilterRoutine(filter: string) {
+  if (filter === "teacher") return await teacher.queryRoutineByFilter();
+  return await discipline.queryRoutineByFilter();
 }

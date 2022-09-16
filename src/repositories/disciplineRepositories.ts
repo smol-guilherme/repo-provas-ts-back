@@ -11,3 +11,7 @@ export async function findIdByName(
   });
   return response;
 }
+
+export async function queryRoutineByFilter() {
+  return;
+}

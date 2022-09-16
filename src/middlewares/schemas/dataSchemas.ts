@@ -4,6 +4,10 @@ export const idSchema = Joi.object({
   id: Joi.number().required(),
 });
 
+export const filterSchema = Joi.object({
+  filter: Joi.string().valid("teacher", "discipline").required(),
+});
+
 export const signupSchema = Joi.object({
   email: Joi.string().trim().email().required(),
   password: Joi.string().trim().min(10).required(),
