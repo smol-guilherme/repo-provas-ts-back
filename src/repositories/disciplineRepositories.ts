@@ -43,6 +43,23 @@ export async function queryRoutineByFilter() {
       },
     },
   });
-  // console.log(response);
-  return response;
+  const newReponse = response.map((disciplineInfoLayer) => {
+    return {
+      id: disciplineInfoLayer.id,
+      disciplineName: disciplineInfoLayer.name,
+      tests: disciplineInfoLayer.teacherDiscipline.map((testInfoLayer) => {
+        return {
+          ...testInfoLayer.tests.map((test) => {
+            return {
+              term: testInfoLayer.Disciplines.term.number,
+              name: test.name,
+              pdfUrl: test.pdfUrl,
+              professorName: testInfoLayer.Teachers.name,
+            };
+          }),
+        };
+      }),
+    };
+  });
+  return newReponse;
 }
