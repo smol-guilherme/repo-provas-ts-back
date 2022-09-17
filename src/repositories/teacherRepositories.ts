@@ -46,13 +46,13 @@ export async function queryRoutineByFilter() {
   const newResponse = response.map((teacherInfoLayer) => {
     return {
       id: teacherInfoLayer.id,
-      name: teacherInfoLayer.name,
+      professorName: teacherInfoLayer.name,
       tests: teacherInfoLayer.teachersDisciplines.map((testInfoLayer) => {
         return {
           ...testInfoLayer.tests.map((test) => {
             return {
               term: testInfoLayer.Disciplines.term.number,
-              name: test.name,
+              testName: test.name,
               pdfUrl: test.pdfUrl,
               category: test.Categories.name,
               discipline: testInfoLayer.Disciplines.name,

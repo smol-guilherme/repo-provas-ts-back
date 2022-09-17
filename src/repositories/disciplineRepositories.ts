@@ -56,12 +56,12 @@ export async function queryRoutineByFilter() {
         return {
           ...testInfoLayer.tests.map((fields) => {
             return {
-              id: fields.id,
-              name: fields.name,
-              pdfUrl: fields.pdfUrl,
-              professorName: testInfoLayer.Teachers.name,
               term: testInfoLayer.Disciplines.term.number,
+              id: fields.id,
+              testName: fields.name,
+              pdfUrl: fields.pdfUrl,
               category: fields.Categories.name,
+              professorName: testInfoLayer.Teachers.name,
             };
           }),
         };
