@@ -23,6 +23,11 @@ export async function queryRoutineByFilter() {
               id: true,
               name: true,
               pdfUrl: true,
+              Categories: {
+                select: {
+                  name: true,
+                },
+              },
             },
           },
           Teachers: {
@@ -49,12 +54,14 @@ export async function queryRoutineByFilter() {
       disciplineName: disciplineInfoLayer.name,
       tests: disciplineInfoLayer.teacherDiscipline.map((testInfoLayer) => {
         return {
-          ...testInfoLayer.tests.map((test) => {
+          ...testInfoLayer.tests.map((fields) => {
             return {
-              term: testInfoLayer.Disciplines.term.number,
-              name: test.name,
-              pdfUrl: test.pdfUrl,
+              id: fields.id,
+              name: fields.name,
+              pdfUrl: fields.pdfUrl,
               professorName: testInfoLayer.Teachers.name,
+              term: testInfoLayer.Disciplines.term.number,
+              category: fields.Categories.name,
             };
           }),
         };
