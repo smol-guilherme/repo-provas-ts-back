@@ -1,7 +1,7 @@
 import { prisma } from "../databases/database";
 import { TeachersDisciplines } from "@prisma/client";
-import { Hashtable } from "../types/dataTypes.js";
-import { sortTests } from "../utils/dataSortingUtils.js";
+import { Hashtable } from "../types/dataTypes";
+import { sortTests } from "../utils/dataSortingUtils";
 
 export async function findRelationIdByNames(
   discId: number,
