@@ -25,6 +25,7 @@ export async function queryRoutineByFilter() {
             select: {
               id: false,
               name: true,
+              term: true,
             },
           },
           tests: {
@@ -48,12 +49,13 @@ export async function queryRoutineByFilter() {
       name: teacherInfoLayer.name,
       tests: teacherInfoLayer.teachersDisciplines.map((testInfoLayer) => {
         return {
-          discipline: testInfoLayer.Disciplines.name,
           ...testInfoLayer.tests.map((test) => {
             return {
+              term: testInfoLayer.Disciplines.term.number,
               name: test.name,
               pdfUrl: test.pdfUrl,
               category: test.Categories.name,
+              discipline: testInfoLayer.Disciplines.name,
             };
           }),
         };
@@ -62,10 +64,8 @@ export async function queryRoutineByFilter() {
   });
   newResponse.forEach((teacher) =>
     teacher.tests.map((test, index, arr) => {
-      if (Object.keys(test).length === 1) arr.splice(index, 1);
+      if (Object.keys(test).length === 0) arr.splice(index, 1);
     })
   );
-  console.log(newResponse[0].tests[0]);
-
   return newResponse;
 }

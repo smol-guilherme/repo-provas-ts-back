@@ -13,5 +13,36 @@ export async function findIdByName(
 }
 
 export async function queryRoutineByFilter() {
-  return;
+  const response = await prisma.disciplines.findMany({
+    where: {},
+    include: {
+      teacherDiscipline: {
+        select: {
+          tests: {
+            select: {
+              id: true,
+              name: true,
+              pdfUrl: true,
+            },
+          },
+          Teachers: {
+            select: {
+              name: true,
+            },
+          },
+          Disciplines: {
+            select: {
+              term: {
+                select: {
+                  number: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+  // console.log(response);
+  return response;
 }
