@@ -52,20 +52,18 @@ export async function queryRoutineByFilter() {
     return {
       id: disciplineInfoLayer.id,
       disciplineName: disciplineInfoLayer.name,
-      tests: disciplineInfoLayer.teacherDiscipline.map((testInfoLayer) => {
-        return {
-          ...testInfoLayer.tests.map((fields) => {
-            return {
-              term: testInfoLayer.Disciplines.term.number,
-              id: fields.id,
-              testName: fields.name,
-              pdfUrl: fields.pdfUrl,
-              category: fields.Categories.name,
-              professorName: testInfoLayer.Teachers.name,
-            };
-          }),
-        };
-      }),
+      tests: disciplineInfoLayer.teacherDiscipline.map((testInfoLayer) =>
+        testInfoLayer.tests.map((fields) => {
+          return {
+            term: testInfoLayer.Disciplines.term.number,
+            id: fields.id,
+            testName: fields.name,
+            pdfUrl: fields.pdfUrl,
+            category: fields.Categories.name,
+            professorName: testInfoLayer.Teachers.name,
+          };
+        })
+      ),
     };
   });
   return newReponse;
