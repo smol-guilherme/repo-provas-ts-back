@@ -30,12 +30,14 @@ export interface IJoiError {
   custom_message?: string;
 }
 
-type TTestResponse = {
-  name: string;
+export type TTestInfoArray = {
+  term: number;
+  discipline: string;
+  testName: string;
+  category: string;
   pdfUrl: string;
-  categoryName: string;
 };
 
-export interface TTeachersTestResponse extends models.Teachers {
-  tests: TTestResponse[];
+export interface Hashtable<T> {
+  [key: string]: T;
 }

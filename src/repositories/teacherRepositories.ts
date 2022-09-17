@@ -1,5 +1,6 @@
 import { prisma } from "../databases/database";
 import { TeachersDisciplines } from "@prisma/client";
+import { Hashtable, TTestInfoArray } from "../types/dataTypes.js";
 
 export async function findRelationIdByNames(
   discId: number,
@@ -21,13 +22,6 @@ export async function queryRoutineByFilter() {
     include: {
       teachersDisciplines: {
         select: {
-          Disciplines: {
-            select: {
-              id: false,
-              name: true,
-              term: true,
-            },
-          },
           tests: {
             select: {
               name: true,
@@ -39,27 +33,33 @@ export async function queryRoutineByFilter() {
               },
             },
           },
+          Disciplines: {
+            select: {
+              id: false,
+              name: true,
+              term: true,
+            },
+          },
         },
       },
     },
   });
+
   const newResponse = response.map((teacherInfoLayer) => {
     return {
       id: teacherInfoLayer.id,
       professorName: teacherInfoLayer.name,
-      tests: teacherInfoLayer.teachersDisciplines.map((testInfoLayer) => {
-        return {
-          ...testInfoLayer.tests.map((test) => {
-            return {
-              term: testInfoLayer.Disciplines.term.number,
-              testName: test.name,
-              pdfUrl: test.pdfUrl,
-              category: test.Categories.name,
-              discipline: testInfoLayer.Disciplines.name,
-            };
-          }),
-        };
-      }),
+      tests: teacherInfoLayer.teachersDisciplines.map((testInfoLayer) =>
+        testInfoLayer.tests.map((test) => {
+          return {
+            term: testInfoLayer.Disciplines.term.number,
+            testName: test.name,
+            pdfUrl: test.pdfUrl,
+            category: test.Categories.name,
+            discipline: testInfoLayer.Disciplines.name,
+          };
+        })
+      ),
     };
   });
   newResponse.forEach((teacher) =>
@@ -67,5 +67,46 @@ export async function queryRoutineByFilter() {
       if (Object.keys(test).length === 0) arr.splice(index, 1);
     })
   );
+  const catHash: Hashtable<number> = {};
+  let i = 0;
+  newResponse.map((data) =>
+    data.tests.map((item) =>
+      item.map((test) => {
+        if (catHash[test.category as keyof typeof catHash] === undefined) {
+          catHash[test.category as keyof typeof catHash] = i;
+          i++;
+        }
+      })
+    )
+  );
+  // console.log(catHash);
+
+  newResponse.forEach((teacher) => {
+    teacher.tests = sortTests(teacher.tests, { ...catHash });
+  });
+
   return newResponse;
+}
+
+function sortTests(data: TTestInfoArray[][], customHash: Hashtable<number>) {
+  const newTests: TTestInfoArray[][] = [];
+  let auxArr: TTestInfoArray[] = [];
+  const newArr = data.flat(1);
+  let safety = 0;
+  let i = 0;
+  let hashFilter = Object.keys(customHash)[0];
+  while (Object.keys(customHash).length !== 0) {
+    if (safety > 1000) throw {};
+    if (i === newArr.length) {
+      i = 0;
+      delete customHash[hashFilter];
+      hashFilter = Object.keys(customHash)[0];
+      if (auxArr.length !== 0) newTests.push(auxArr);
+      auxArr = [];
+    }
+    if (newArr[i].category === hashFilter) auxArr.push(newArr[i]);
+    i++;
+    safety++;
+  }
+  return newTests;
 }
