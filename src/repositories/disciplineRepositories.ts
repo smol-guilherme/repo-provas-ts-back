@@ -1,5 +1,6 @@
 import { prisma } from "../databases/database";
-import { TObjectId } from "../types/dataTypes";
+import { Hashtable, TObjectId } from "../types/dataTypes";
+import { sortDTests } from "../utils/dataSortingUtils";
 
 export async function findIdByName(
   discName: string
@@ -48,7 +49,7 @@ export async function queryRoutineByFilter() {
       },
     },
   });
-  const newReponse = response.map((disciplineInfoLayer) => {
+  const newResponse = response.map((disciplineInfoLayer) => {
     return {
       id: disciplineInfoLayer.id,
       disciplineName: disciplineInfoLayer.name,
@@ -66,5 +67,28 @@ export async function queryRoutineByFilter() {
       ),
     };
   });
-  return newReponse;
+
+  const catHash: Hashtable<number> = {};
+  let i = 0;
+
+  newResponse.forEach((teacher, index, arr) => {
+    if (teacher.tests.flat(1).length === 0) arr.splice(index, 1);
+  });
+
+  newResponse.map((data) =>
+    data.tests.map((item) =>
+      item.map((test) => {
+        if (catHash[test.category as keyof typeof catHash] === undefined) {
+          catHash[test.category as keyof typeof catHash] = i;
+          i++;
+        }
+      })
+    )
+  );
+
+  newResponse.forEach((discipline) => {
+    discipline.tests = sortDTests(discipline.tests, { ...catHash });
+  });
+
+  return newResponse;
 }

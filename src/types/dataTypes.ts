@@ -31,8 +31,18 @@ export interface IJoiError {
 }
 
 export type TTestInfoArray = {
+  id: number;
   term: number;
   discipline: string;
+  testName: string;
+  category: string;
+  pdfUrl: string;
+};
+
+export type TTestDisciplineArray = {
+  id: number;
+  term: number;
+  professorName: string;
   testName: string;
   category: string;
   pdfUrl: string;

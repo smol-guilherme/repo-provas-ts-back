@@ -25,6 +25,7 @@ export async function queryRoutineByFilter() {
         select: {
           tests: {
             select: {
+              id: true,
               name: true,
               pdfUrl: true,
               Categories: {
@@ -53,6 +54,7 @@ export async function queryRoutineByFilter() {
       tests: teacherInfoLayer.teachersDisciplines.map((testInfoLayer) =>
         testInfoLayer.tests.map((test) => {
           return {
+            id: test.id,
             term: testInfoLayer.Disciplines.term.number,
             testName: test.name,
             pdfUrl: test.pdfUrl,
