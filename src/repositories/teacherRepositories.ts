@@ -1,6 +1,7 @@
 import { prisma } from "../databases/database";
 import { TeachersDisciplines } from "@prisma/client";
-import { Hashtable, TTestInfoArray } from "../types/dataTypes.js";
+import { Hashtable } from "../types/dataTypes.js";
+import { sortTests } from "../utils/dataSortingUtils.js";
 
 export async function findRelationIdByNames(
   discId: number,
@@ -79,34 +80,10 @@ export async function queryRoutineByFilter() {
       })
     )
   );
-  // console.log(catHash);
 
   newResponse.forEach((teacher) => {
     teacher.tests = sortTests(teacher.tests, { ...catHash });
   });
 
   return newResponse;
-}
-
-function sortTests(data: TTestInfoArray[][], customHash: Hashtable<number>) {
-  const newTests: TTestInfoArray[][] = [];
-  let auxArr: TTestInfoArray[] = [];
-  const newArr = data.flat(1);
-  let safety = 0;
-  let i = 0;
-  let hashFilter = Object.keys(customHash)[0];
-  while (Object.keys(customHash).length !== 0) {
-    if (safety > 1000) throw {};
-    if (i === newArr.length) {
-      i = 0;
-      delete customHash[hashFilter];
-      hashFilter = Object.keys(customHash)[0];
-      if (auxArr.length !== 0) newTests.push(auxArr);
-      auxArr = [];
-    }
-    if (newArr[i].category === hashFilter) auxArr.push(newArr[i]);
-    i++;
-    safety++;
-  }
-  return newTests;
 }
