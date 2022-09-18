@@ -25,6 +25,8 @@ export async function insertTestRoutine(data: ITestRequest) {
 }
 
 export async function getTestsByFilterRoutine(filter: string) {
+  console.log(filter);
+
   if (filter === "teacher") return await teacher.queryRoutineByFilter();
   return await discipline.queryRoutineByFilter();
 }

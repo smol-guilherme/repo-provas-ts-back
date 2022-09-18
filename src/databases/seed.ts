@@ -1,13 +1,15 @@
 import {
   convertToInsertableRandomObject,
   randomTestObject,
-} from "../../tests/factories/testsFactory.js";
-import { TTestInsert } from "../types/dataTypes.js";
-import { prisma } from "./database.js";
+} from "../../tests/factories/testsFactory";
+import { TTestInsert } from "../types/dataTypes";
+import { prisma } from "./database";
+
+const SAMPLE_SIZE = 12;
 
 async function main() {
   const data: TTestInsert[] = [];
-  for (let i = 0; i < Math.floor(Math.random() * 12); i++) {
+  for (let i = 0; i < SAMPLE_SIZE; i++) {
     data.push(convertToInsertableRandomObject(randomTestObject(true)));
   }
   await prisma.tests.createMany({ data });

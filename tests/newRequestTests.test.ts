@@ -25,6 +25,9 @@ describe("GET /tests to retrieve data from the database", () => {
   });
 
   it("request a valid set of data at random (teacher/discipline) ", async () => {
+    const path = randomValidFilter();
+    console.log(path);
+
     const { status } = await supertest(app)
       .get(`/tests/${randomValidFilter()}`)
       .set("Authorization", `Bearer ${token}`);
@@ -36,6 +39,7 @@ describe("GET /tests to retrieve data from the database", () => {
       .get(`/tests/teacher`)
       .set("Authorization", `Bearer ${token}`);
     expect(response.status).toBe(200);
+    expect(response.body).toBeInstanceOf(Array);
   });
 
   it("request data filtered by the list of disciplines", async () => {
@@ -43,18 +47,21 @@ describe("GET /tests to retrieve data from the database", () => {
       .get(`/tests/discipline`)
       .set("Authorization", `Bearer ${token}`);
     expect(response.status).toBe(200);
+    expect(response.body).toBeInstanceOf(Array);
   });
 
   it("request an invalid set of data at random", async () => {
     const filter = randomFilterWord();
 
     const { status } = await supertest(app)
-      .get(`/tests/${filter}`)
-      .set("Authorization", `Bearer ${token}`);
+      .get(`/tests`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(filter);
     expect(status).toBe(422);
   });
 });
 
 afterAll(async () => {
+  // await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
   await prisma.$disconnect();
 });

@@ -7,9 +7,6 @@ import {
   randomTestObject,
 } from "./factories/testsFactory";
 
-beforeAll(async () => {
-  await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
-});
 const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.ybbR8CBWWQSJ9SkJRLXLDi7rIqjbBwGi8K4iSOm5w6U`;
 
 describe("POST /tests to insert a new test to the Database", () => {
@@ -30,7 +27,6 @@ describe("POST /tests to insert a new test to the Database", () => {
 
   it("inserting a random object with the correct structure and data", async () => {
     const body = randomTestObject(true);
-    console.log(body);
 
     const { status } = await supertest(app)
       .post("/tests")
@@ -41,7 +37,6 @@ describe("POST /tests to insert a new test to the Database", () => {
 
   it("inserting a random object with the correct structure but invalid data", async () => {
     const body = randomTestObject(false);
-    console.log(body);
 
     const { status } = await supertest(app)
       .post("/tests")
@@ -72,5 +67,6 @@ describe("POST /tests to insert a new test to the Database", () => {
 });
 
 afterAll(async () => {
+  // await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
   await prisma.$disconnect();
 });

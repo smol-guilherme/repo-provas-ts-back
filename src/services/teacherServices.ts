@@ -5,7 +5,6 @@ export async function teacherDisciplineRelationTest(
   teacherName: string
 ) {
   const data = await findRelationIdByNames(disciplineId, teacherName);
-  console.log(data);
 
   if (data === null || data === undefined)
     throw {

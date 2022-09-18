@@ -47,6 +47,8 @@ export async function queryRoutineByFilter() {
     },
   });
 
+  console.log(response);
+
   const newResponse = response.map((teacherInfoLayer) => {
     return {
       id: teacherInfoLayer.id,

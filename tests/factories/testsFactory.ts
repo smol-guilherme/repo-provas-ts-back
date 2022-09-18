@@ -26,7 +26,6 @@ export function randomTestObject(validObject: boolean) {
   } else {
     discipline = softDisciplines[upToLength(softDisciplines.length)];
   }
-  console.log(two, Math.floor(1 / (two + 1)));
 
   if (validObject) {
     professor = professorList[two];
@@ -45,13 +44,18 @@ export function randomTestObject(validObject: boolean) {
 export function convertToInsertableRandomObject(
   data: ITestRequest
 ): TTestInsert {
+  const teacherDisciplineId = () => {
+    const profIndex = professorList.indexOf(data.teacherName);
+    if (profIndex)
+      return (softDisciplines.indexOf(data.discipline) + 1) * (profIndex + 1);
+    return (hardDisciplines.indexOf(data.discipline) + 1) * (profIndex + 1);
+  };
+
   return {
     name: data.name,
     pdfUrl: data.pdfUrl,
-    categoryId: categories.indexOf(data.category),
-    teachersDisciplineId:
-      (categories.indexOf(data.discipline) + 1) *
-      (categories.indexOf(data.teacherName) + 1),
+    categoryId: categories.indexOf(data.category) + 1,
+    teachersDisciplineId: teacherDisciplineId(),
   };
 }
 

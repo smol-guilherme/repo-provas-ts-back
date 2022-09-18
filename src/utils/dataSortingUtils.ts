@@ -34,7 +34,6 @@ export function sortDTests(
   const newTests: TTestDisciplineArray[][] = [];
   let auxArr: TTestDisciplineArray[] = [];
   const newArr = data.flat(1);
-  console.log(newArr);
   let safety = 0;
   let i = 0;
   let hashFilter = Object.keys(customHash)[0];
