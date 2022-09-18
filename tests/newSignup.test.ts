@@ -4,6 +4,7 @@ import { prisma } from "../src/databases/database";
 import {
   completeUserForSignup,
   incompleteUserForSignup,
+  randomUserRegister,
 } from "./factories/usersFactory";
 
 beforeAll(async () => {
@@ -36,6 +37,13 @@ describe("POST /signup to register a new user", () => {
     const { status } = await supertest(app).post("/signup").send(body);
 
     expect(status).toBe(409);
+  });
+
+  it("inserting a new user with non-matching data so it fails", async () => {
+    const body = randomUserRegister(false);
+    const { status } = await supertest(app).post("/signup").send(body);
+
+    expect(status).toBe(422);
   });
 });
 

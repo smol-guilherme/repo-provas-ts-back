@@ -9,7 +9,7 @@
     "dev": "NODE_ENV=dev nodemon src/server.ts",
     "start": "node ./dist/index.js",
     "build": "tsc --build",
-    "test": "NODE_ENV=test jest -i --no-cache --watch newTest.test.ts"
+    "test": "NODE_ENV=test prisma migrate dev && NODE_ENV=test prisma db seed && NODE_ENV=test jest -i --no-cache --watch newRquestTest.test.ts"
   },
   "keywords": [],
   "author": "",

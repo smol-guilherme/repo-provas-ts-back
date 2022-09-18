@@ -8,7 +8,7 @@ import {
 } from "./factories/testsFactory";
 
 beforeAll(async () => {
-  await prisma.$executeRaw`TRUNCATE TABLE tests;`;
+  await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
 });
 const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.ybbR8CBWWQSJ9SkJRLXLDi7rIqjbBwGi8K4iSOm5w6U`;
 

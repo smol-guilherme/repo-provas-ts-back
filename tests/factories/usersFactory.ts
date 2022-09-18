@@ -38,12 +38,16 @@ export function incompleteUserForSignin(): UserInsertOrLogin {
   return data;
 }
 
-export function randomUserRegister(): IRegistryBody {
+export function randomUserRegister(validBody: boolean): IRegistryBody {
   const password = faker.internet.password();
+  const repeatPassword = () => {
+    if (validBody) return password;
+    return faker.internet.password();
+  };
   return {
     email: faker.internet.email(),
     password: password,
-    repeatPassword: password,
+    repeatPassword: repeatPassword(),
   };
 }
 
