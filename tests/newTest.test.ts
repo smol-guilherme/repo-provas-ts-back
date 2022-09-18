@@ -1,7 +1,11 @@
 import app from "../src/index";
 import supertest from "supertest";
 import { prisma } from "../src/databases/database";
-import { completeTest, incompleteTest } from "./factories/testsFactory";
+import {
+  completeTest,
+  incompleteTest,
+  randomTestObject,
+} from "./factories/testsFactory";
 
 beforeAll(async () => {
   await prisma.$executeRaw`TRUNCATE TABLE tests;`;
@@ -22,6 +26,28 @@ describe("POST /tests to insert a new test to the Database", () => {
       .set("Authorization", `Bearer ${token}`)
       .send(body);
     expect(status).toBe(201);
+  });
+
+  it("inserting a random object with the correct structure and data", async () => {
+    const body = randomTestObject(true);
+    console.log(body);
+
+    const { status } = await supertest(app)
+      .post("/tests")
+      .set("Authorization", `Bearer ${token}`)
+      .send(body);
+    expect(status).toBe(201);
+  });
+
+  it("inserting a random object with the correct structure but invalid data", async () => {
+    const body = randomTestObject(false);
+    console.log(body);
+
+    const { status } = await supertest(app)
+      .post("/tests")
+      .set("Authorization", `Bearer ${token}`)
+      .send(body);
+    expect(status).toBe(401);
   });
 
   it("inserting an object with the correct structure but missing arguments/fields", async () => {

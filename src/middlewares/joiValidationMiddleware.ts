@@ -12,8 +12,6 @@ export default function validateData(schema: SchemaProp) {
       return {};
     };
     if (schemas[schema] === undefined) throw Error("no schema found");
-    console.log(data());
-
     if (Object.keys(data()).length === 0)
       throw {
         type: "empty_request",

@@ -12,6 +12,7 @@ describe("POST /signin to authenticate a new user", () => {
     const body = completeUserForSignin(true);
     const response = await supertest(app).post("/signin").send(body);
     expect(response.status).toBe(200);
+    expect(typeof response.body.token).toBe("string");
   });
 
   it("sending an empty request", async () => {

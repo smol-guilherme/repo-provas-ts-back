@@ -8,6 +8,7 @@ import * as discipline from "../repositories/disciplineRepositories";
 
 export async function insertTestRoutine(data: ITestRequest) {
   const categoryId: number = await categoryExistsTest(data.category);
+
   const disciplineId: number = await disciplineExistsTest(data.discipline);
   const relationId: number = await teacherDisciplineRelationTest(
     disciplineId,
