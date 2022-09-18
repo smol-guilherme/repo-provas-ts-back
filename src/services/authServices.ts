@@ -22,7 +22,10 @@ async function isUserRegistered(data: string, isLogin: boolean) {
       message: "e-mail address is already in use",
     };
   if (isLogin && response === null)
-    throw { type: "not_found_error", message: "email invalid or not found" };
+    throw {
+      type: "invalid_request_error",
+      message: "email invalid or not found",
+    };
   return response;
 }
 

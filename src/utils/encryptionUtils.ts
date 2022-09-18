@@ -15,7 +15,7 @@ export async function passwordAuth(
   if (await passwordCompare(requestData.password, queriedData.password))
     return emitToken(queriedData.id);
   throw {
-    type: "authentication_error",
+    type: "invalid_request_error",
     message: "incorrect email or password",
   };
 }

@@ -6,8 +6,7 @@ import { completeTest, incompleteTest } from "./factories/testsFactory";
 beforeAll(async () => {
   await prisma.$executeRaw`TRUNCATE TABLE tests;`;
 });
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjYzMjUwOTYyLCJleHAiOjE2NjMyNzk3NjJ9.-7IUwN_4Rzyl0-q3n6JzBvOfDvwu-QS4GxtCofhjVRM";
+const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.ybbR8CBWWQSJ9SkJRLXLDi7rIqjbBwGi8K4iSOm5w6U`;
 
 describe("POST /tests to insert a new test to the Database", () => {
   it("inserting an object with the correct structure and data, but no login", async () => {
@@ -36,8 +35,7 @@ describe("POST /tests to insert a new test to the Database", () => {
   });
 
   it("inserting an object with an expired token so it forbids", async () => {
-    const expiredToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjYzMjUwMDU3LCJleHAiOjE2NjMyNTAwNTd9.O596zfG2WrYxZALCtX9dhTKxsEfbD8_II_c3sdUamYQ";
+    const expiredToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjYzMjUwMDU3LCJleHAiOjE2NjMyNTAwNTd9.O596zfG2WrYxZALCtX9dhTKxsEfbD8_II_c3sdUamYQ`;
     const body = completeTest();
     const { status } = await supertest(app)
       .post("/tests")
