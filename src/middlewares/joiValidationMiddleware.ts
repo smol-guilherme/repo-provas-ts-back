@@ -11,12 +11,12 @@ export default function validateData(schema: SchemaProp) {
       if (Object.keys(req.query).length !== 0) return req.query;
       return {};
     };
-    if (schemas[schema] === undefined) throw Error("no schema found");
     if (Object.keys(data()).length === 0)
       throw {
         type: "empty_request",
         message: "request has no data to process.",
       };
+    if (schemas[schema] === undefined) throw Error("no schema found");
     const { error } = schemas[schema].validate(data(), {
       abortEarly: false,
     });

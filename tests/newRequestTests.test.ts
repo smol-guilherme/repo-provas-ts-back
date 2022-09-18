@@ -8,6 +8,10 @@ import {
 
 const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.ybbR8CBWWQSJ9SkJRLXLDi7rIqjbBwGi8K4iSOm5w6U`;
 
+beforeAll(async () => {
+  // await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
+});
+
 describe("GET /tests to retrieve data from the database", () => {
   it("request a valid set of data at random (teacher/discipline), but no login", async () => {
     const { status } = await supertest(app).get(
@@ -22,16 +26,6 @@ describe("GET /tests to retrieve data from the database", () => {
       .get(`/tests/${randomValidFilter()}`)
       .set("Authorization", `Bearer ${expiredToken}`);
     expect(status).toBe(403);
-  });
-
-  it("request a valid set of data at random (teacher/discipline) ", async () => {
-    const path = randomValidFilter();
-    console.log(path);
-
-    const { status } = await supertest(app)
-      .get(`/tests/${randomValidFilter()}`)
-      .set("Authorization", `Bearer ${token}`);
-    expect(status).toBe(200);
   });
 
   it("request data filtered by the list of teachers", async () => {
@@ -54,14 +48,13 @@ describe("GET /tests to retrieve data from the database", () => {
     const filter = randomFilterWord();
 
     const { status } = await supertest(app)
-      .get(`/tests`)
-      .set("Authorization", `Bearer ${token}`)
-      .send(filter);
+      .get(`/tests/${filter}`)
+      .set("Authorization", `Bearer ${token}`);
     expect(status).toBe(422);
   });
 });
 
 afterAll(async () => {
-  // await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
+  await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
   await prisma.$disconnect();
 });

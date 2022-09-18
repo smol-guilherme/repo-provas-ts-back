@@ -2,7 +2,7 @@ import {
   Hashtable,
   TTestDisciplineArray,
   TTestInfoArray,
-} from "../types/dataTypes.js";
+} from "../types/dataTypes";
 
 export function sortTests(
   data: TTestInfoArray[][],
@@ -11,9 +11,11 @@ export function sortTests(
   const newTests: TTestInfoArray[][] = [];
   let auxArr: TTestInfoArray[] = [];
   const newArr = data.flat(1);
+  let safety = 0;
   let i = 0;
   let hashFilter = Object.keys(customHash)[0];
   while (Object.keys(customHash).length !== 0) {
+    if (safety > 1000 * newArr.length) throw { message: "execution timed out" };
     if (i === newArr.length) {
       i = 0;
       delete customHash[hashFilter];
@@ -23,6 +25,7 @@ export function sortTests(
     }
     if (newArr[i].category === hashFilter) auxArr.push(newArr[i]);
     i++;
+    safety++;
   }
   return newTests;
 }
@@ -38,7 +41,7 @@ export function sortDTests(
   let i = 0;
   let hashFilter = Object.keys(customHash)[0];
   while (Object.keys(customHash).length !== 0) {
-    if (safety > 500) throw {};
+    if (safety > 1000 * newArr.length) throw { message: "execution timed out" };
     if (i === newArr.length) {
       i = 0;
       delete customHash[hashFilter];

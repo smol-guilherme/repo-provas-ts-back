@@ -67,6 +67,5 @@ describe("POST /tests to insert a new test to the Database", () => {
 });
 
 afterAll(async () => {
-  // await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
   await prisma.$disconnect();
 });

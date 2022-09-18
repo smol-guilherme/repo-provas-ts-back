@@ -18,7 +18,7 @@ const professorList = ["Diego Pinho", "Bruna Hamori"];
 
 export function randomTestObject(validObject: boolean) {
   const upToLength = (param: number) => Math.floor(Math.random() * param);
-  const two = Math.floor(Math.random() * (professorList.length - 1));
+  const two = Math.floor(Math.random() * professorList.length);
   let discipline: string;
   let professor: string;
   if (two < 1) {
@@ -44,18 +44,13 @@ export function randomTestObject(validObject: boolean) {
 export function convertToInsertableRandomObject(
   data: ITestRequest
 ): TTestInsert {
-  const teacherDisciplineId = () => {
-    const profIndex = professorList.indexOf(data.teacherName);
-    if (profIndex)
-      return (softDisciplines.indexOf(data.discipline) + 1) * (profIndex + 1);
-    return (hardDisciplines.indexOf(data.discipline) + 1) * (profIndex + 1);
-  };
-
   return {
     name: data.name,
     pdfUrl: data.pdfUrl,
-    categoryId: categories.indexOf(data.category) + 1,
-    teachersDisciplineId: teacherDisciplineId(),
+    categoryId: Math.ceil(Math.random() * categories.length),
+    teachersDisciplineId: Math.ceil(
+      Math.random() * (softDisciplines.length + hardDisciplines.length)
+    ),
   };
 }
 
