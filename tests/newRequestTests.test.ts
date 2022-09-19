@@ -8,10 +8,6 @@ import {
 
 const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.ybbR8CBWWQSJ9SkJRLXLDi7rIqjbBwGi8K4iSOm5w6U`;
 
-beforeAll(async () => {
-  // await prisma.$executeRaw`TRUNCATE TABLE tests RESTART IDENTITY;`;
-});
-
 describe("GET /tests to retrieve data from the database", () => {
   it("request a valid set of data at random (teacher/discipline), but no login", async () => {
     const { status } = await supertest(app).get(
@@ -45,8 +41,10 @@ describe("GET /tests to retrieve data from the database", () => {
   });
 
   it("request an invalid set of data at random", async () => {
-    const filter = randomFilterWord();
-
+    let filter = randomFilterWord();
+    while (filter === "teacher" || filter === "discipline") {
+      filter = randomFilterWord();
+    }
     const { status } = await supertest(app)
       .get(`/tests/${filter}`)
       .set("Authorization", `Bearer ${token}`);

@@ -5,7 +5,7 @@ import {
 import { TTestInsert } from "../types/dataTypes";
 import { prisma } from "./database";
 
-const SAMPLE_SIZE = 20;
+const SAMPLE_SIZE = 40;
 
 async function main() {
   // módulos do curso
