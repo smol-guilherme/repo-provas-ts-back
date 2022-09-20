@@ -14,6 +14,6 @@ app.use(cors());
 app.use(authRouter);
 app.use(testRouter);
 app.use(handleError);
-app.use("/doc", serve, setup(swaggerDoc));
+app.use("/docs", serve, setup(swaggerDoc));
 
 export default app;
