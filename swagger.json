@@ -1,0 +1,121 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Repo Provas API",
+    "description": "A API permite usuários autenticados enviar provas ao sistema para serem compartilhadas com outras pessoas."
+  },
+  "version": "1.0.0",
+  "paths": {
+    "/signup": {
+      "post": {
+        "summary": "Cadastro de usuário",
+        "description": "Esta rota permite usuários se cadastrarem no sistema.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Signup"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signin": {
+      "post": {
+        "summary": "Autenticação de usuário",
+        "description": "Esta rota permite usuários se autenticarem no sistema. Apenas usuários autenticados podem contribuir com a inserção de novas provas",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Signin"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tests": {
+      "post": {
+        "summary": "Inserção de provas no sistema",
+        "description": "Esta rota permite usuários autenticados de inserir uma nova prova no sistema, desde que o objeto enviado esteja de acordo com o formato estabelecido.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Test"
+              },
+              "examples": {
+                "test": {
+                  "value": {
+                    "name": "Projeto HUB evolved",
+                    "pdfUrl": "https://www.google.com/hub_evolved_pdf",
+                    "category": "Prática",
+                    "discipline": "JavaScript",
+                    "teacherName": "Diego Pinho"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tests/:filter": {
+      "get": {
+        "summary": "Busca de provas agrupados pelo filtro 'filter'",
+        "description": "Esta rota permite usuários autenticados de buscarem a lista de provas disponíveis no sistema passando um dos dois filtros: 1. teacher, para agrupar os dados de acordo com a pessoa instrutora que aplicou a prova; 2. discipline: para agrupar todas as provas de uma mesma matéria"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Signup": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "confirmPassword": {
+            "type": "string"
+          }
+        }
+      },
+      "Signin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Test": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "pdfUrl": {
+            "type": "string"
+          },
+          "discipline": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "teacherName": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
